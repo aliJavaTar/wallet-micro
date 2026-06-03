@@ -1,17 +1,33 @@
 package com.amz.wallet.domain;
 
+import com.amz.wallet.persentation.Currency;
+
 import java.math.BigDecimal;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class Wallet {
 
-    private BigDecimal amount;
+    private final Map<Currency, BigDecimal> amountBaseOnCurrency;
 
-    public boolean hasEnoughMoney(BigDecimal sourceAmount) {
-        return amount.compareTo(sourceAmount) >= 0;
+    public Wallet() {
+        amountBaseOnCurrency = new ConcurrentHashMap<>();
     }
 
-    public void addAmount(BigDecimal targetAmount) {
-        this.amount = targetAmount.add(amount);
+
+    public boolean hasEnoughMoney(BigDecimal sourceAmount, Currency sourceCurrency) {
+        return amountBaseOnCurrency.containsKey(sourceCurrency) &&
+                amountBaseOnCurrency.get(sourceCurrency).compareTo(sourceAmount) >= 0;
+    }
+
+    public void apply(BigDecimal targetAmount, Currency targetCurrency, Currency sourceCurrency, BigDecimal sourceAmount) {
+        if (!amountBaseOnCurrency.containsKey(targetCurrency) && amountBaseOnCurrency.containsKey(sourceCurrency)) {
+            throw new IllegalArgumentException("wrong target currency");
+        }
+
+        amountBaseOnCurrency.computeIfPresent(sourceCurrency, (_, currentAmount) -> currentAmount.subtract(sourceAmount));
+        amountBaseOnCurrency.merge(targetCurrency, targetAmount, BigDecimal::add);
+
     }
 }

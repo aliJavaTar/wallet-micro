@@ -7,6 +7,7 @@ import com.amz.wallet.persentation.BuyRequestDto;
 import com.amz.wallet.persentation.BuyResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,17 +16,16 @@ public class Buy {
     private final Wallets wallets;
     private final ExceptionFactory walletException;
 
+    @Transactional
     public BuyResponse applyAmount(BuyRequestDto request) {
         Wallet wallet = wallets.getById(request.getWalletId())
                 .orElseThrow(() -> walletException.of(ErrorType.WALLET_NOT_FOUND));
 
-        boolean hasEnoughMoney = wallet.hasEnoughMoney(request.getSourceAmount());
-
-        if (Boolean.FALSE.equals(hasEnoughMoney)) {
+        if (!wallet.hasEnoughMoney(request.getSourceAmount(), request.getSourceCurrency())) {
             throw walletException.of(ErrorType.INSUFFICIENT_ACCOUNT_BALANCE);
         }
 
-        wallet.addAmount(request.getTargetAmount());
+        wallet.apply(request.getTargetAmount(), request.getTargetCurrency(), request.getSourceCurrency(), request.getSourceAmount());
         wallets.save(wallet);
 
 
