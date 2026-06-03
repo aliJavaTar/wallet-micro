@@ -1,8 +1,11 @@
 package com.amz.wallet;
 
+import com.amz.wallet.infra.db.config.ErrorMessageProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+@EnableConfigurationProperties(ErrorMessageProperties.class)
 @SpringBootApplication
 public class WalletApplication {
 

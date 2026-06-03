@@ -7,9 +7,6 @@ public class Wallet {
 
     private BigDecimal amount;
 
-    private String currency;
-
-
     public boolean hasEnoughMoney(BigDecimal sourceAmount) {
         return amount.compareTo(sourceAmount) >= 0;
     }

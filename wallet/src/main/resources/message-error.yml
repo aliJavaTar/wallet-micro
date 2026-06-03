@@ -1,0 +1,4 @@
+errors:
+  messages:
+    wallet.not-found: wallet not found
+    wallet.insufficient-balance: user dont have money

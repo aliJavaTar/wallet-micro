@@ -2,7 +2,7 @@ package com.amz.wallet.application;
 
 import com.amz.wallet.domain.Wallet;
 import com.amz.wallet.domain.Wallets;
-import com.amz.wallet.infra.db.WalletConfig;
+import com.amz.wallet.infra.db.config.ExceptionFactory;
 import com.amz.wallet.persentation.BuyRequestDto;
 import com.amz.wallet.persentation.BuyResponse;
 import lombok.RequiredArgsConstructor;
@@ -13,16 +13,16 @@ import org.springframework.stereotype.Service;
 public class Buy {
 
     private final Wallets wallets;
-    private final WalletConfig config;
+    private final ExceptionFactory walletException;
 
     public BuyResponse applyAmount(BuyRequestDto request) {
         Wallet wallet = wallets.getById(request.getWalletId())
-                .orElseThrow(() -> new WalletNotFoundException(config.getNotFountMessage()));
+                .orElseThrow(() -> walletException.of(ErrorType.WALLET_NOT_FOUND));
 
         boolean hasEnoughMoney = wallet.hasEnoughMoney(request.getSourceAmount());
 
         if (Boolean.FALSE.equals(hasEnoughMoney)) {
-            throw new NotEnoughMoneyException("you have not enough money");
+            throw walletException.of(ErrorType.INSUFFICIENT_ACCOUNT_BALANCE);
         }
 
         wallet.addAmount(request.getTargetAmount());
