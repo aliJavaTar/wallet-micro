@@ -18,8 +18,7 @@ public class Buy {
 
     @Transactional
     public BuyResponse applyAmount(BuyRequestDto request) {
-        Wallet wallet = wallets.getById(request.getWalletId())
-                .orElseThrow(() -> walletException.of(ErrorType.WALLET_NOT_FOUND));
+        Wallet wallet = wallets.getById(request.getWalletId()).orElseThrow(() -> walletException.of(ErrorType.WALLET_NOT_FOUND));
 
         if (!wallet.hasEnoughMoney(request.getSourceAmount(), request.getSourceCurrency())) {
             throw walletException.of(ErrorType.INSUFFICIENT_ACCOUNT_BALANCE);

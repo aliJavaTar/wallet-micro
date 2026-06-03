@@ -28,6 +28,10 @@ public class Wallet {
 
         amountBaseOnCurrency.computeIfPresent(sourceCurrency, (_, currentAmount) -> currentAmount.subtract(sourceAmount));
         amountBaseOnCurrency.merge(targetCurrency, targetAmount, BigDecimal::add);
+    }
 
+
+    public Map<Currency, BigDecimal> getAmountBaseOnCurrency() {
+        return amountBaseOnCurrency;
     }
 }
