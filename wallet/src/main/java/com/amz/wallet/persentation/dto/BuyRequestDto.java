@@ -1,4 +1,4 @@
-package com.amz.wallet.persentation;
+package com.amz.wallet.persentation.dto;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;

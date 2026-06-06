@@ -1,4 +1,4 @@
-package com.amz.wallet.persentation;
+package com.amz.wallet.persentation.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -2,6 +2,7 @@ package com.amz.wallet.persentation;
 
 import com.amz.wallet.application.ApplicationException;
 import com.amz.wallet.application.ErrorType;
+import com.amz.wallet.persentation.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

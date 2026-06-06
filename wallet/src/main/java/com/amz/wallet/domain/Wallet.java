@@ -1,12 +1,14 @@
 package com.amz.wallet.domain;
 
-import com.amz.wallet.persentation.Currency;
+import com.amz.wallet.persentation.dto.Currency;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 
+@Getter
 public class Wallet {
 
     private final Map<Currency, BigDecimal> amountBaseOnCurrency;
@@ -31,7 +33,4 @@ public class Wallet {
     }
 
 
-    public Map<Currency, BigDecimal> getAmountBaseOnCurrency() {
-        return amountBaseOnCurrency;
-    }
 }

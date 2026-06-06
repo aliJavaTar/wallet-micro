@@ -1,4 +1,4 @@
-package com.amz.wallet.persentation;
+package com.amz.wallet.persentation.dto;
 
 import java.math.BigDecimal;
 
