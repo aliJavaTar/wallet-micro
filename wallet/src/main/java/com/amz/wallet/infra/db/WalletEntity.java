@@ -18,10 +18,8 @@ public class WalletEntity {
     @Id
     private Long id;
 
-    private BigDecimal amount;
-
     @OneToMany(cascade = CascadeType.PERSIST)
-    private Set<CurrencyEntity> currencies;
+    private Set<CurrencyAmountEntity> currencies;
 
    //wallet_id  amount    currency_ID
    // 1             12     ( 1 )      USD
