@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 @Entity
 @Getter
 @Setter
+@Table(name = "currency_amounts")
 public class CurrencyAmountEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "currency_seq_gen")

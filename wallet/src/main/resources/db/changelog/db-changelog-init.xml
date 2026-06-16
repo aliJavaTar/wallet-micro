@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-5.0.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <changeSet id="1-create-currency_id" author="ali">
+        <createSequence incrementBy="10" sequenceName="currency_id_seq" startValue="1"/>
+    </changeSet>
+
+    <changeSet id="2-create-wallet-id" author="ali">
+        <createSequence incrementBy="10" sequenceName="wallet_id_seq" startValue="1"/>
+    </changeSet>
+
+    <changeSet id="3-create-currency_amounts-table" author="ali">
+        <createTable tableName="currency_amounts">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_currency_amounts"/>
+            </column>
+            <column name="currency" type="SMALLINT"/>
+            <column name="amount" type="DECIMAL"/>
+            <column name="wallet_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4-create-wallet-table" author="ali">
+        <createTable tableName="wallets">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_wallets"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5-connect-wallet-to-currency" author="ali">
+        <addForeignKeyConstraint
+                baseTableName="currency_amounts"
+                baseColumnNames="wallet_id"
+                constraintName="fk_currency_amounts_wallet"
+                referencedTableName="wallets"
+                referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

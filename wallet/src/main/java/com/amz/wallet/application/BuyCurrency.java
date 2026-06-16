@@ -27,9 +27,7 @@ public class BuyCurrency {
 
         wallet.apply(request.getTargetAmount(), request.getTargetCurrency(),
                 request.getSourceCurrency(), request.getSourceAmount());
-
         wallets.save(wallet);
-
         return new BuyResponse("", "", null);
     }
 }

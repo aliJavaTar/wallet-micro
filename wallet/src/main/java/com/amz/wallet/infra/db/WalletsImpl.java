@@ -23,6 +23,6 @@ public class WalletsImpl implements Wallets {
 
     @Override
     public void save(Wallet wallet) {
-        repository.save(new WalletEntity());
+        repository.save(walletMapper.toEntity(wallet));
     }
 }

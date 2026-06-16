@@ -23,7 +23,9 @@ public class Wallet {
                 amountBaseOnCurrency.get(sourceCurrency).compareTo(sourceAmount) >= 0;
     }
 
-    public void apply(BigDecimal targetAmount, Currency targetCurrency, Currency sourceCurrency, BigDecimal sourceAmount) {
+    //todo read this logic
+    public void apply(BigDecimal targetAmount, Currency targetCurrency,
+                      Currency sourceCurrency, BigDecimal sourceAmount) {
         if (!amountBaseOnCurrency.containsKey(targetCurrency) && amountBaseOnCurrency.containsKey(sourceCurrency)) {
             throw new IllegalArgumentException("wrong target currency");
         }

@@ -1,9 +1,6 @@
 package com.amz.wallet.infra.db;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,15 +10,16 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Table(name = "wallets")
 public class WalletEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wallet_seq_gen")
+    @SequenceGenerator(name = "wallet_seq_gen", sequenceName = "wallet_id_seq", allocationSize = 10)
     private Long id;
 
+    @JoinColumn(referencedColumnName = "wlllet_id")
     @OneToMany(cascade = CascadeType.PERSIST)
     private Set<CurrencyAmountEntity> currencies;
 
-   //wallet_id  amount    currency_ID
-   // 1             12     ( 1 )      USD
-  // 1              1      ( 2 )     Rial
 }
